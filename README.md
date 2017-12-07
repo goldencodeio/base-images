@@ -1,2 +1,5 @@
 # base-images
-Base docker images
+Base docker images:
+
+* mysql
+* web
