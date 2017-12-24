@@ -1,7 +1,6 @@
 FROM phpdockerio/php71-fpm:latest
 LABEL maintainer="Constantine Karnaukhov <genteelknight@gmail.com>"
 
-# INSTALL PHP EXTENSIONS, NGINX AND SSMTP
 RUN apt-get update \
 	&& apt-get -y --no-install-recommends install \
 	php7.1-memcached \
@@ -23,20 +22,15 @@ RUN apt-get update \
 
 RUN usermod -u 1000 www-data
 
-# PHP CONFIGS
 COPY php/ /etc/php/7.1/fpm/conf.d/
 COPY php/ /etc/php/7.1/cli/conf.d/
-
-# NGINX CONFIGS
 COPY nginx/ /etc/nginx/
-
-# Initial screen
 COPY www/ /var/www/html/
+COPY ./run.sh /
 
 WORKDIR "/var/www/html"
 
-COPY ./run.sh /
-RUN chmod +x /run.sh
+RUN chmod +x /run.sh && chown -R www-data.www-data /var/www/html
 CMD ["/run.sh"]
 
 EXPOSE 80 443 9000
