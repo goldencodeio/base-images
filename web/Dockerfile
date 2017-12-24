@@ -1,27 +1,42 @@
-FROM bitrixdock/php71-fpm:latest
+FROM phpdockerio/php71-fpm:latest
 LABEL maintainer="Constantine Karnaukhov <genteelknight@gmail.com>"
+
+# INSTALL PHP EXTENSIONS, NGINX AND SSMTP
+RUN apt-get update \
+	&& apt-get -y --no-install-recommends install \
+	php7.1-memcached \
+	php7.1-memcache \
+	php7.1-mbstring \
+	php7.1-mysql \
+	php7.1-intl \
+	php7.1-xdebug \
+	php7.1-interbase \
+	php7.1-soap \
+	php7.1-gd \
+	php7.1-imagick \
+	php7.1-mcrypt \
+	php7.1-opcache \
+	php7.1-zip \
+	nginx \
+	ssmtp \
+	&& apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN usermod -u 1000 www-data
 
-# INSTALL NGINX
-RUN apt-get update \
-	&& apt-get install -y nginx \
-	&& apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
-
 # PHP CONFIGS
-ADD ./php.ini /etc/php/7.1/fpm/conf.d/90-php.ini
-ADD ./php.ini /etc/php/7.1/cli/conf.d/90-php.ini
+COPY php/ /etc/php/7.1/fpm/conf.d/
+COPY php/ /etc/php/7.1/cli/conf.d/
 
 # NGINX CONFIGS
-ADD conf/nginx.conf /etc/nginx/
-ADD conf/default.conf /etc/nginx/sites-available/default
-ADD conf/upstream.conf /etc/nginx/conf.d/
-ADD www/index.html /var/www/html/
+COPY nginx/ /etc/nginx/
 
-WORKDIR "/var/www/bitrix"
+# Initial screen
+COPY www/ /var/www/html/
 
-ADD ./run.sh /
+WORKDIR "/var/www/html"
+
+COPY ./run.sh /
 RUN chmod +x /run.sh
 CMD ["/run.sh"]
 
-EXPOSE 80 443
+EXPOSE 80 443 9000
