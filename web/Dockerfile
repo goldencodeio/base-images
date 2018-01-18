@@ -26,11 +26,11 @@ COPY php/ /etc/php/7.1/fpm/conf.d/
 COPY php/ /etc/php/7.1/cli/conf.d/
 COPY nginx/ /etc/nginx/
 COPY www/ /var/www/html/
-COPY ./run.sh /
+COPY sbin/ /usr/local/sbin/
 
 WORKDIR "/var/www/html"
 
-RUN chmod +x /run.sh && chown -R www-data.www-data /var/www/html
-CMD ["/run.sh"]
+RUN chmod +x /usr/local/sbin/entrypoint && chown -R www-data.www-data /var/www/html
+CMD entrypoint; sleep infinity
 
 EXPOSE 80 443 9000
