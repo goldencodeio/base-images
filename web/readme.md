@@ -38,8 +38,8 @@ This image has ssmtp package preinstalled. So you can add this lines to your Doc
 
 ```dockerfile
 # enable ssmtp
-RUN mv /etc/php/7.1/fpm/conf.d/30-mail.ini.disabled /etc/php/7.1/fpm/conf.d/30-mail.ini &&
-	mv /etc/php/7.1/cli/conf.d/30-mail.ini.disabled /etc/php/7.1/cli/conf.d/30-mail.ini
+RUN mv /etc/php/7.1/fpm/conf.d/30-ssmtp.ini.disabled /etc/php/7.1/fpm/conf.d/30-ssmtp.ini && \
+	mv /etc/php/7.1/cli/conf.d/30-ssmtp.ini.disabled /etc/php/7.1/cli/conf.d/30-ssmtp.ini
 
 # ssmtp config
 RUN { \
