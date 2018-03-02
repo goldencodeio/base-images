@@ -1,6 +1,9 @@
-FROM docker:dind
-RUN apk add --no-cache \
+FROM gitlab/dind:latest
+
+RUN apt-get update \
+	&& apt-get install -y \
 		make \
-		py-pip \
-		openssh-client \
-	&& pip install docker-compose
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["bash"]
