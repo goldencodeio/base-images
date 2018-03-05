@@ -8,3 +8,6 @@ RUN apt-get update \
 	&& echo "*/5 * * * * /usr/bin/php -f /var/www/html/bitrix/modules/main/tools/cron_events.php" | crontab
 COPY nginx/ /etc/nginx/
 COPY www/ /var/www/html/
+
+# Clean working directory of demo files
+ONBUILD RUN rm -rf ./*

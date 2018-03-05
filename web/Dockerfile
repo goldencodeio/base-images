@@ -35,3 +35,6 @@ RUN chmod +x /usr/local/sbin/entrypoint && chown -R www-data.www-data /var/www/h
 CMD entrypoint; sleep infinity
 
 EXPOSE 80 443 9000
+
+# Clean working directory of demo files
+ONBUILD RUN rm -rf ./*
