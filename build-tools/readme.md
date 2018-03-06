@@ -1,6 +1,15 @@
 # [build-tools](https://hub.docker.com/r/zolotoykod/build-tools)
 
-Docker image that used for continuous integration purposes on Golden Code projects. Based on `docker:dind` with make and docker-compose installed.
+Ubuntu-based Docker image that used for continuous integration purposes on Golden Code projects.
+
+Software installed:
+
+* make
+* git
+* ssh
+* docker and docker-compose
+* [shipit](https://github.com/sapegin/shipit) installed.
+
 
 ```bash
 docker pull zolotoykod/build-tools
