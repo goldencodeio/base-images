@@ -8,8 +8,7 @@ Software installed:
 * git
 * ssh
 * docker and docker-compose
-* [shipit](https://github.com/sapegin/shipit) installed.
-
+* [shipit](https://github.com/sapegin/shipit)
 
 ```bash
 docker pull zolotoykod/build-tools
